@@ -1,0 +1,18 @@
+##fileformat=VCFv4.1
+##source=mason_variator
+##reference=sequence.fa
+##INFO=<ID=END,Number=1,Type=Integer,Description="End position of the variant described in this record">
+##INFO=<ID=SVLEN,Number=.,Type=Integer,Description="Difference in length between REF and ALT alleles">
+##INFO=<ID=SVTYPE,Number=1,Type=String,Description="Type of structural variant">
+##INFO=<ID=TARGETPOS,Number=1,Type=String,Description="Target position for duplications.">
+##ALT=<ID=INV,Description="Inversion">
+##ALT=<ID=DUP,Description="Duplication">
+##contig=<ID=NZ_CP186566.1,length=43535>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	simulated
+NZ_CP186566.1	488	sim_snp_0	A	C	.	PASS	.	.	1
+NZ_CP186566.1	637	sim_snp_1	G	A	.	PASS	.	.	1
+NZ_CP186566.1	9041	sim_snp_2	C	T	.	PASS	.	.	1
+NZ_CP186566.1	10436	sim_snp_3	A	T	.	PASS	.	.	1
+NZ_CP186566.1	29422	sim_snp_4	G	A	.	PASS	.	.	1
+NZ_CP186566.1	34786	sim_snp_5	C	T	.	PASS	.	.	1
+NZ_CP186566.1	42750	sim_snp_6	G	A	.	PASS	.	.	1
