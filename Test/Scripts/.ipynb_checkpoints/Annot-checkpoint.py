@@ -64,6 +64,7 @@ def main():
         for key in set(blocks[0].keys()) & set(blocks[1].keys()) & set(blocks[2].keys()):
             vcf_snp.extend(vcf.MergeVCF(blocks[0][key], blocks[1][key], blocks[2][key], "all"))
     log(f"Consensus SNPs found: {len(vcf_snp)}")
+    print(vcf_snp)
 
     # --- Extract coding regions ---
     log("Extracting CDS subregions ...")
@@ -75,7 +76,12 @@ def main():
     ]
 
     # --- Consensus SNPs cleanup ---
-    vcf_snp = [[i[0], i[1], i[2]] for i in vcf_snp if i[2] == i[4] == i[6]]
+    vcf_snp = [
+    [i[0], i[1], i[2], i[7]] if i[2] == i[4] == i[6]
+    else [i[0], i[3], i[4], i[7]]
+    for i in vcf_snp
+]
+    print(vcf_snp)
 
     # --- Map SNPs to subregions ---
     log("Mapping SNPs to CDS regions ...")
@@ -131,7 +137,7 @@ def main():
     # --- Write output files ---
     log("Writing output files ...")
     with open(args.outputAnnotation, "w") as f:
-        f.write("Pos\tGene\tProduct\tRef\tAlt\tStrand\n")
+        f.write("Pos\tProduct\tProtein\tRef\tAlt\tStrand\n")
         f.write("\n".join(annotation))
 
     with open(args.outputProtein, "w") as f:
