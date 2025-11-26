@@ -48,6 +48,7 @@ LOG_DIR="$PROJECT_DIR/Output/Logs"
 ALIGN_DIR="$PROJECT_DIR/Output/Alignments"
 SNP_DIR="$PROJECT_DIR/Output/SNPCalls"
 GFF_PATH="$PROJECT_DIR/Input/Gff3/$REF_GFF"
+PROT_DIR="$PROJECT_DIR/Output/ProteinSequences/Predictions"
 
 if [[ ! -f "$REF_PATH" ]]; then
     echo "[ERROR] Reference FASTA not found: $REF_PATH"; exit 1
@@ -137,13 +138,15 @@ done
 
 echo "[INFO] Pipeline finished for all samples."
 echo "[STEP] Translating SNPs to protein changes..."
-python3 $PROJECT_DIR/../Scripts/Annot.py \
-  -f "$PROJECT_DIR/Input/RefGenome/$REF_FASTA" \
-  -g "$GFF_PATH" \
-  -v1 "$SNP_DIR/BCFTools/${SAMPLE}.vcf" \
-  -v2 "$SNP_DIR/Freebayes/${SAMPLE}.vcf" \
-  -v3 "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
-  -o1 "$PROJECT_DIR/Output/ProteinSequences/Predictions/${SAMPLE}_protein.fasta" \
-  -o2 "$PROJECT_DIR/Output/ProteinSequences/Predictions/${SAMPLE}_annotation.tsv" \
-  -o3 "$PROJECT_DIR/Output/SNPCalls/${SAMPLE}_consensus.tsv" \
-  2> "$LOG_DIR/${SAMPLE}_variant_to_protein.log"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")/Scripts"
+
+python3 "$SCRIPT_DIR/Annot.py" \
+    -f "$REF_PATH" \
+    -g "$GFF_PATH" \
+    -v1 "$SNP_DIR/BCFTools/${SAMPLE}.vcf" \
+    -v2 "$SNP_DIR/Freebayes/${SAMPLE}.vcf" \
+    -v3 "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
+    -o1 "$PROT_DIR/${SAMPLE}_protein.fasta" \
+    -o2 "$PROT_DIR/${SAMPLE}_annotation.tsv" \
+    -o3 "$SNP_DIR/${SAMPLE}_consensus.tsv" \
+    2> "$LOG_DIR/${SAMPLE}_annot.log"
