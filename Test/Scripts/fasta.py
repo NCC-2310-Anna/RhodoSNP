@@ -1,34 +1,39 @@
 # -*- coding: utf-8 -*-
 #Reformat the fasta
 def FastaCleanup(fasta_list):
-    import re #import the regex library
-    i=0
-    fa = ["",""] # An empty list, which is needed for the fasta 
-    while i < len(fasta_list):
-        x = re.findall("\A>", fasta_list[i])
-        if x:
-            fa[0]=fasta_list[i]
+    headers = []
+    seq_chunks = []  # statt seqs = [] mit +=
+
+    h_append = headers.append
+    c_append = seq_chunks.append
+
+    for line in fasta_list:
+        line = line.strip()
+        if line.startswith(">"):
+            h_append(line)
+            c_append([])  # neue Liste für seq lines
         else:
-            fa[1]=fa[1]+fasta_list[i]
-        i=i+1
-    fa[1]=''.join(fa[1].split('\n'))
-    return fa
+            if not seq_chunks:
+                h_append(None)
+                c_append([])
+            seq_chunks[-1].append(line)
+
+    # Jetzt joinen wir die Sequenzen einmal
+    seqs = ["".join(ch) for ch in seq_chunks]
+    return list(zip(headers, seqs))
 
 def ExtractRegion(lower, upper, direction, data):
-    import re
     subregion = str()
-    for i in data:
-        if direction == '-':
-            if not re.search("^>", i):
-                subregion = i[lower-1:upper-1]
-        elif direction == '+':
-            if not re.search("^>", i):
-                subregion_tmp = i[lower-1:upper-1]
-                subregion = list()
-                for j in subregion_tmp:
-                    subregion.append(j)
-                subregion = ''.join(subregion)
+    if direction == '-':
+        subregion = data[lower-1:upper-1]
+    elif direction == '+':
+        subregion_tmp = data[lower-1:upper-1]
+        subregion = list()
+        for j in subregion_tmp:
+            subregion.append(j)
+        subregion = ''.join(subregion)
     return subregion
+
 
 def ReverseString(data):
     data = data[::-1]

@@ -4,50 +4,6 @@ Created on Wed Oct 30 14:06:51 2024
 
 @author: Anna
 """
-
-#def MergeVCF(vcf1, vcf2, vcf3, searchword):
-#    from collections import Counter
-#
-#    # Use Dictionaries for faster Data accesss
-#    vcf_dicts = [{rec[0]: rec for rec in vcf} for vcf in [vcf1, vcf2, vcf3]]
-#    
-#    # collect all positions
-#    positions = []
-#    for d in vcf_dicts:
-#        positions.extend(d.keys())
-#    
-#    # Positionen zählen
-#    pos_counts = Counter(positions)
-#    
-#    # Nur Positionen mit mindestens 2 Vorkommen
-#    common_positions = [pos for pos, count in pos_counts.items() if count >= 2]
-#    
-#    merged_records = []
-#    for pos in common_positions:
-#        # Hole Werte, wenn vorhanden, sonst Platzhalter
-#        i = vcf_dicts[0].get(pos, [pos, '.', '.', '.', '.'])
-#        j = vcf_dicts[1].get(pos, [pos, '.', '.', '.', '.'])
-#        k = vcf_dicts[2].get(pos, [pos, '.', '.', '.', '.'])
-#        
-#        # Format: Pos, i_REF, i_ALT, j_REF, j_ALT, k_REF, k_ALT, INFO
-#        merged = [pos, i[1], i[2], j[1], j[2], k[1], k[2], i[3] if len(i) > 3 else '.']
-#        merged_records.append(merged)
-#
-#    def is_snp(record):
-#        alleles = record[1:7]
-#        # ein SNP = Länge aller Einträge == 1 oder '.'
-#        return all(len(a) == 1 or a == '.' for a in alleles)
-#
-#    if searchword == "all":
-#        return merged_records
-#    elif searchword == "indel":
-#        return [rec for rec in merged_records if not is_snp(rec)]
-#    elif searchword == "snp":
-#        return [rec for rec in merged_records if is_snp(rec)]
-#    else:
-#        print("Searchword must be 'snp', 'indel' oder 'all'!")
-#        return []
-
 def MergeVCF(vcf1, vcf2, vcf3, searchword):
     from collections import Counter
 
@@ -107,8 +63,6 @@ def MergeVCF(vcf1, vcf2, vcf3, searchword):
 
     print("Searchword must be 'snp', 'indel' oder 'all'!")
     return []
-
-
 
 
 #extract a list of SNPs from the vcf File 
