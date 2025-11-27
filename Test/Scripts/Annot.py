@@ -127,7 +127,7 @@ def main():
                     mutated = fasta.ReverseString(mutated).translate(str.maketrans("ATCG", "TAGC"))
                     multifasta.append((f">{pos}_{ref}_{alt}_{start}_{end}_{direction}", mutated))
             else:
-                log(f"[WARN] Mismatch at SNP {pos}: expected {ref}, found {seq[idx]}")
+                log(f"[WARN] Mismatch at SNP {pos}: expected {ref}, found {alt}")
     
     # --- Translate DNA to protein ---
     log("Translating DNA to protein ...")
