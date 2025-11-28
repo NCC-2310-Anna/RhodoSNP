@@ -32,12 +32,20 @@ def main():
     args = parser.parse_args()
     
         # --- Load Input Files ---
+    # log("Loading input files ...")
+    # fasta_file = Rf.ReadFile(args.fasta)
+    # gff_file = Rf.ReadFile(args.gff)
+    # vcf_bcf = Rf.ReadFile(args.vcf1)
+    # vcf_fb = Rf.ReadFile(args.vcf2)
+    # vcf_lf = Rf.ReadFile(args.vcf3)
+    
+        # --- Load Input Files ---
     log("Loading input files ...")
-    fasta_file = Rf.ReadFile(args.fasta)
-    gff_file = Rf.ReadFile(args.gff)
-    vcf_bcf = Rf.ReadFile(args.vcf1)
-    vcf_fb = Rf.ReadFile(args.vcf2)
-    vcf_lf = Rf.ReadFile(args.vcf2)
+    fasta_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/Cereibacter_sphaeroides_reoriented.fasta")
+    gff_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/annot.gff")
+    vcf_bcf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006BC.vcf")
+    vcf_fb = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006FB.vcf")
+    vcf_lf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006LF.vcf")
     
     # --- Prepare data ---
     log("Cleaning FASTA and extracting coding regions ...")
@@ -52,7 +60,7 @@ def main():
     # --- Merge VCFs ---
     log("Merging SNPs from all callers ...")
     if len(vcf_new_bcf) < 1000 or len(vcf_new_fb) < 1000 or len(vcf_new_lf) < 1000:
-        vcf_snp = vcf.MergeVCF(vcf_new_bcf, vcf_new_fb, vcf_new_lf, "all")
+        vcf_snp = vcf.merge_vcf(vcf_new_bcf, vcf_new_fb, vcf_new_lf, "all")
     else:
         log("Large files detected — splitting and merging by blocks ...")
         blocks = [
@@ -62,15 +70,16 @@ def main():
         ]
         vcf_snp = []
         for key in set(blocks[0].keys()) & set(blocks[1].keys()) & set(blocks[2].keys()):
-            vcf_snp.extend(vcf.MergeVCF(blocks[0][key], blocks[1][key], blocks[2][key], "all"))
+            vcf_snp.extend(vcf.merge_vcf(blocks[0][key], blocks[1][key], blocks[2][key], "all"))
     log(f"Consensus SNPs found: {len(vcf_snp)-1}")
     
     # --- Consensus SNPs cleanup ---
-    vcf_snp_2 = [
-    [i[0], i[1], i[2], i[7]] if i[2] == i[4] == i[6]
-    else [i[0], i[3], i[4], i[7]]
-    for i in vcf_snp
-    ]
+    vcf_snp_2 = []
+    for i in vcf_snp:
+        if i[2] != ".":
+            vcf_snp_2.append([i[0], i[1], i[2], i[7]])      
+        else:
+            vcf_snp_2.append([i[0], i[3], i[4], i[7]]) 
     
     vcf_snp = vcf_snp_2
     

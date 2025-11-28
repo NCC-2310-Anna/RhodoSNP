@@ -4,7 +4,7 @@ Created on Wed Oct 30 14:06:51 2024
 
 @author: Anna
 """
-def MergeVCF(vcf1, vcf2, vcf3, searchword):
+def merge_vcf(vcf1, vcf2, vcf3, searchword):
     from collections import Counter
 
     # Build lookup dictionaries for faster access
