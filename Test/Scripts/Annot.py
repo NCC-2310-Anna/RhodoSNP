@@ -74,13 +74,7 @@ def main():
     log(f"Consensus SNPs found: {len(vcf_snp)-1}")
     
     # --- Consensus SNPs cleanup ---
-    vcf_snp_2 = []
-    for i in vcf_snp:
-        if i[2] != ".":
-            vcf_snp_2.append([i[0], i[1], i[2], i[7]])      
-        else:
-            vcf_snp_2.append([i[0], i[3], i[4], i[7]]) 
-    
+    vcf_snp_2 = vcf.ConflictDetection(vcf_snp)
     vcf_snp = vcf_snp_2
     
     # Remove the variables we dont need anymore...
