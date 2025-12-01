@@ -32,20 +32,20 @@ def main():
     args = parser.parse_args()
     
         # --- Load Input Files ---
-    # log("Loading input files ...")
-    # fasta_file = Rf.ReadFile(args.fasta)
-    # gff_file = Rf.ReadFile(args.gff)
-    # vcf_bcf = Rf.ReadFile(args.vcf1)
-    # vcf_fb = Rf.ReadFile(args.vcf2)
-    # vcf_lf = Rf.ReadFile(args.vcf3)
-    
-        # --- Load Input Files ---
     log("Loading input files ...")
-    fasta_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/Cereibacter_sphaeroides_reoriented.fasta")
-    gff_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/annot.gff")
-    vcf_bcf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006BC.vcf")
-    vcf_fb = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006FB.vcf")
-    vcf_lf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006LF.vcf")
+    fasta_file = Rf.ReadFile(args.fasta)
+    gff_file = Rf.ReadFile(args.gff)
+    vcf_bcf = Rf.ReadFile(args.vcf1)
+    vcf_fb = Rf.ReadFile(args.vcf2)
+    vcf_lf = Rf.ReadFile(args.vcf3)
+    
+    #     # --- Load Input Files ---
+    # log("Loading input files ...")
+    # fasta_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/Cereibacter_sphaeroides_reoriented.fasta")
+    # gff_file = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/annot.gff")
+    # vcf_bcf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006BC.vcf")
+    # vcf_fb = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006FB.vcf")
+    # vcf_lf = Rf.ReadFile("/home/anna-nauruschat/Dokumente/Phd/Projects/Targets/SRR5769006LF.vcf")
     
     # --- Prepare data ---
     log("Cleaning FASTA and extracting coding regions ...")
