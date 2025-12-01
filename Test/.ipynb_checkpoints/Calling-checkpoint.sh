@@ -113,11 +113,10 @@ for FASTQ_R1 in "${ALL_SAMPLES[@]}"; do
     samtools view -q "$QUALITY_THRESH" -b "$RAW_BAM" > "$FILTERED_BAM"
     samtools index "$FILTERED_BAM"
 
-    echo "[STEP] SNP Calling"
     # --- LoFreq ---
     lofreq indelqual --dindel --ref "$REF_PATH" --out "$INDELQUAL_BAM" "$RAW_BAM" 2> "$LOG_DIR/${SAMPLE}_indelqual.log"
     samtools index "$INDELQUAL_BAM"
-
+    echo "[STEP] SNP Calling"
     lofreq call-parallel --pp-threads "$THREADS" \
         -f "$REF_PATH" --call-indels \
         -o "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
@@ -136,7 +135,7 @@ for FASTQ_R1 in "${ALL_SAMPLES[@]}"; do
     echo "------------------------------------------------------"
 done
 echo "[STEP] Nomalize vcf files..."
-mkdir "$SNP_DIR/Temp"
+mkdir "$SNP_DIR"/Temp
 cp "$SNP_DIR/BCFTools/${SAMPLE}.vcf" "$SNP_DIR/Temp/${SAMPLE}.vcf"
 bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$SNP_DIR/Temp/${SAMPLE}_sort.vcf" -o "$SNP_DIR/Temp/${SAMPLE}_norm.vcf"
@@ -150,7 +149,9 @@ mv "$SNP_DIR/Temp/${SAMPLE}_norm.vcf" "$SNP_DIR/Freebayes/${SAMPLE}.vcf"
 rm "$SNP_DIR/Temp/*.vcf"
 
 cp "$SNP_DIR/Lofreq/${SAMPLE}.vcf" "$SNP_DIR/Temp/${SAMPLE}.vcf"
-bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
+bgzip "$SNP_DIR/Temp/${SAMPLE}.vcf"
+tabix -p "$SNP_DIR/Temp/${SAMPLE}.vcf.gz"
+bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf.gz" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$SNP_DIR/Temp/${SAMPLE}_sort.vcf" -o "$SNP_DIR/Temp/${SAMPLE}_norm.vcf"
 mv "$SNP_DIR/Temp/${SAMPLE}_norm.vcf" "$SNP_DIR/Lofreq/${SAMPLE}.vcf"
 rm "$SNP_DIR/Temp/*.vcf"
