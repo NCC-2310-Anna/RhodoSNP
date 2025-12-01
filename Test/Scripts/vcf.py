@@ -77,7 +77,7 @@ def ConflictDetection(vcf_merge):
         chrom = variant[7]
         if pos != "POS" and pos != "POS ":
             if ref1 == ref2 == ref3 and alt1 == alt2 == alt3: # variant is found by all callers
-                if len(ref1) + len(ref2) + len(ref3) < 4 and len(ref1) + len(ref2) + len(ref3) < 4:
+                if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
                     print(f"SNP at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                     output_vcf.append([pos, chrom, ref1, alt1, "SNP"])
                 else:
@@ -85,7 +85,7 @@ def ConflictDetection(vcf_merge):
                     output_vcf.append([pos, chrom, ref1, alt1, "INDEL"])
             elif ref1 == ".":
                 if ref2 == ref3 and alt2 == alt3:
-                    if len(ref1) + len(ref2) + len(ref3) < 4 and len(ref1) + len(ref2) + len(ref3) < 4:
+                    if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
                         print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref2, alt2, "SNP"])
                     else:
@@ -97,7 +97,7 @@ def ConflictDetection(vcf_merge):
                     print(f"Caller 3: {ref3}/{alt3}")
             elif ref2 == ".":
                 if ref1 == ref3 and alt1 == alt3:
-                    if len(ref1) + len(ref2) + len(ref3) < 4 and len(ref1) + len(ref2) + len(ref3) < 4:
+                    if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
                         print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref3, alt3, "SNP"])
                     else:
@@ -110,7 +110,7 @@ def ConflictDetection(vcf_merge):
         
             elif ref3 == ".":
                 if ref1 == ref2 and alt1 == alt2:
-                    if len(ref1) + len(ref2) + len(ref3) < 4 and len(ref1) + len(ref2) + len(ref3) < 4:
+                    if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
                         print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref1, alt1, "SNP"])
                     else:

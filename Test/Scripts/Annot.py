@@ -110,9 +110,9 @@ def main():
     for region in subregions[1:]:
         for snp in vcf_snp:
             if snp[0].isdigit():
-                if region[0] <= int(snp[0]) <= region[1] and region[5]==int(snp[3]):
+                if region[0] <= int(snp[0]) <= region[1] and region[5]==int(snp[1]) and snp[4]=="SNP":
                     subregion_with_snp.append(
-                        [snp[0], snp[1], snp[2], *region[:4], region[4], snp[3]]
+                        [snp[0], snp[2], snp[3], *region[:4], region[4], snp[1]]
                     )
     
     # --- Generate mutated FASTA ---
