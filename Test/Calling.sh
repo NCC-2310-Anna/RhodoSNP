@@ -76,25 +76,32 @@ echo "------------------------------------------------------"
 
 # --- FASTQ detection ---
 FASTQ_R1_FILES=($(find "$SEQ_DIR" -type f \( -name "*_R1.fq*" -o -name "*_R1.fastq*" \)))
-echo $FASTQ_R1_FILES
+echo "[INFO] R1-Files: $FASTQ_R1_FILES"
 FASTQ_SINGLE=($(find "$SEQ_DIR" -type f \( -name "*.fastq*" -o -name "*.fq*" \) ! -name "*_R*.f*" ))
-
+echo "[INFO] Single-Files: $FASTQ_SINGLE"
 ALL_SAMPLES=("${FASTQ_R1_FILES[@]}" "${FASTQ_SINGLE[@]}")
 [[ ${#ALL_SAMPLES[@]} -eq 0 ]] && { echo "[ERROR] No FASTQ files found in $SEQ_DIR"; exit 1; }
 
 # --- Process each sample ---
 for FASTQ_R1 in "${ALL_SAMPLES[@]}"; do
     BASENAME=$(basename "$FASTQ_R1")
-    SAMPLE=$(echo "$BASENAME" | sed -E 's/_R1|_R2|.fastq(.gz)?//g')
-    FASTQ_R2="${FASTQ_R1/_R1/_R2}"
+    
+    if [[ "$FASTQ_R1" == *"_R1"* ]]; then
+        SAMPLE=$(echo "$BASENAME" | sed -E 's/_R1|_R2|.fastq(.gz)?//g')
+        FASTQ_R2="${FASTQ_R1/_R1/_R2}"
+    else
+        SAMPLE=$(echo "$BASENAME" | sed -E 's/.fastq(.gz)?//g')
+        FASTQ_R2=""
+    fi
 
-    if [[ -f "$FASTQ_R2" ]]; then
+    if [[ -n "$FASTQ_R2" && -f "$FASTQ_R2" && "$FASTQ_R1" != "$FASTQ_R2" ]]; then
         echo "[INFO] Sample: $SAMPLE → paired-end"
         READS=("$FASTQ_R1" "$FASTQ_R2")
     else
         echo "[INFO] Sample: $SAMPLE → single-end"
         READS=("$FASTQ_R1")
     fi
+
 
     RAW_SAM="$ALIGN_DIR/Raw/${SAMPLE}.sam"
     RAW_BAM="$ALIGN_DIR/Raw/${SAMPLE}.bam"
@@ -134,27 +141,29 @@ for FASTQ_R1 in "${ALL_SAMPLES[@]}"; do
     echo "[DONE] $SAMPLE completed."
     echo "------------------------------------------------------"
 done
-echo "[STEP] Nomalize vcf files..."
+
+echo "[STEP] Normalize vcf files..."
 mkdir "$SNP_DIR"/Temp
 cp "$SNP_DIR/BCFTools/${SAMPLE}.vcf" "$SNP_DIR/Temp/${SAMPLE}.vcf"
 bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$SNP_DIR/Temp/${SAMPLE}_sort.vcf" -o "$SNP_DIR/Temp/${SAMPLE}_norm.vcf"
 mv "$SNP_DIR/Temp/${SAMPLE}_norm.vcf" "$SNP_DIR/BCFTools/${SAMPLE}.vcf"
-rm "$SNP_DIR/Temp/*.vcf"
+rm "$SNP_DIR/Temp/"*.vcf
 
 cp "$SNP_DIR/Freebayes/${SAMPLE}.vcf" "$SNP_DIR/Temp/${SAMPLE}.vcf"
 bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$SNP_DIR/Temp/${SAMPLE}_sort.vcf" -o "$SNP_DIR/Temp/${SAMPLE}_norm.vcf"
 mv "$SNP_DIR/Temp/${SAMPLE}_norm.vcf" "$SNP_DIR/Freebayes/${SAMPLE}.vcf"
-rm "$SNP_DIR/Temp/*.vcf"
+rm "$SNP_DIR/Temp/"*.vcf
 
 cp "$SNP_DIR/Lofreq/${SAMPLE}.vcf" "$SNP_DIR/Temp/${SAMPLE}.vcf"
 bgzip "$SNP_DIR/Temp/${SAMPLE}.vcf"
-tabix -p "$SNP_DIR/Temp/${SAMPLE}.vcf.gz"
+tabix -p vcf "$SNP_DIR/Temp/${SAMPLE}.vcf.gz"
 bcftools sort "$SNP_DIR/Temp/${SAMPLE}.vcf.gz" -Ov -o "$SNP_DIR/Temp/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$SNP_DIR/Temp/${SAMPLE}_sort.vcf" -o "$SNP_DIR/Temp/${SAMPLE}_norm.vcf"
 mv "$SNP_DIR/Temp/${SAMPLE}_norm.vcf" "$SNP_DIR/Lofreq/${SAMPLE}.vcf"
-rm "$SNP_DIR/Temp/*.vcf"
+rm "$SNP_DIR/Temp"/*.vcf "$SNP_DIR/Temp"/*.gz
+rm -r "$SNP_DIR/Temp"/
 
 
 echo "[INFO] Pipeline finished for all samples."
