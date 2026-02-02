@@ -50,7 +50,16 @@ def main():
     # --- Prepare data ---
     log("Cleaning FASTA and extracting coding regions ...")
     fasta_new = fasta.FastaCleanup(fasta_file)
+    log("Checking FASTA headers:")
+    for seq in fasta_new:
+        log(f"  FASTA header: '{seq[0]}'")
     gff_loci = gff.GFFExtractLoci(gff_file, "CDS")
+    log("Checking GFF chromosomes:")
+    seen_chroms = set()
+    for i in gff_loci[:10]:  # Nur erste 10 zum Testen
+        if i[0] not in seen_chroms:
+            log(f"  GFF chrom: '{i[0]}'")
+            seen_chroms.add(i[0])
     
     log("Extracting SNPs ...")
     vcf_new_bcf = vcf.VCFExtractSNP(vcf_bcf)
@@ -82,27 +91,41 @@ def main():
     
     # --- Extract coding regions ---
     log("Extracting CDS subregions ...")
-    
+
     # Header row
     subregions = [["Lower Limit", "Upper Limit", "Direction", "Info", "Region", "Chromosome"]]
-    
+
+    # Erstelle ein Dictionary für schnellen Zugriff auf Chromosomen
+    # Extrahiere nur den ersten Teil des Headers (bis zum ersten Leerzeichen)
+    chrom_dict = {}
+    for seq in fasta_new:
+        header = seq[0].split()[0]  # Nimm nur ersten Teil vor dem Leerzeichen
+        if header.startswith('>'):
+            header = header[1:]  # Entferne '>' falls vorhanden
+        chrom_dict[header] = seq[1]
+
+    log(f"Loaded {len(chrom_dict)} chromosomes from FASTA")
+
     # lokale Bindungen für mehr Speed
     ex_region = fasta.ExtractRegion
-    fa_new = fasta_new
     sr_append = subregions.append
-    
+
     for i in gff_loci:
         lower = int(i[3])
-        upper = int(i[4]) + 1  # nur einmal berechnen
+        upper = int(i[4]) + 1
         direction = i[6]
         info = i[8]
-        chrom = int(i[0])
-    
-        seq = fa_new[int(chrom)-1][1]  # Chromosom lookup nur 1× pro Loop
-        region = ex_region(lower, upper, direction, seq)
-    
-        sr_append([lower, upper, direction, info, region, chrom])
+        chrom = i[0].split()[0]  # Auch hier nur ersten Teil nehmen, falls nötig
         
+        # Hole Sequenz über Chromosomen-Name
+        if chrom not in chrom_dict:
+            log(f"[WARN] Chromosome '{chrom}' not found in FASTA")
+            continue
+        
+        seq = chrom_dict[chrom]
+        region = ex_region(lower, upper, direction, seq)
+        
+        sr_append([lower, upper, direction, info, region, chrom])
     
     # --- Map SNPs to subregions ---
     log("Mapping SNPs to CDS regions ...")
@@ -110,11 +133,11 @@ def main():
     for region in subregions[1:]:
         for snp in vcf_snp:
             if snp[0].isdigit():
-                if region[0] <= int(snp[0]) <= region[1] and region[5]==int(snp[1]) and snp[4]=="SNP":
+                # Vergleiche Chromosomen als Strings
+                if region[0] <= int(snp[0]) <= region[1] and region[5] == snp[1] and snp[4] == "SNP":
                     subregion_with_snp.append(
                         [snp[0], snp[2], snp[3], *region[:4], region[4], snp[1]]
                     )
-    
     # --- Generate mutated FASTA ---
     log("Generating mutated DNA sequences ...")
     multifasta = []

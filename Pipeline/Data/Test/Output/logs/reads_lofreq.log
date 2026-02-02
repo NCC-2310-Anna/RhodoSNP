@@ -1,0 +1,7 @@
+INFO [2026-01-30 11:26:37,717]: Using 6 threads with following basic args: lofreq call -f /home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Rsph_orig.fa --call-indels /home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Output/alignments/Indelqual/reads.indelqual.bam
+
+INFO [2026-01-30 11:26:37,726]: Adding 16 commands to mp-pool
+Number of substitution tests performed: 18984
+Number of indel tests performed: 194
+INFO [2026-01-30 11:26:38,762]: Executing lofreq filter -i /tmp/lofreq2_call_parallelq4vHgs/concat.vcf.gz -o /home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Output/snps/Lofreq/reads.vcf --snvqual-thresh 63 --indelqual-thresh 43
+
