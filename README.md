@@ -11,6 +11,12 @@ mamba env create --name <env name> --file=RhodoSNP_Setup.yml # or conda but that
 cd RhodoSNP/Pipeline
 chmod +x Calling.sh
 ```
+
+You can now run the pipeline with the following command
+```bash
+path/to/RhodoSNP/Pipeline/Calling.sh -h
+```
+
 The output should look something like that
 ```
 Usage: ./Pipeline/Calling.sh -d <project_dir> -r <ref_fasta> [OPTIONS] <-1 READ1 -2 READ2 | -s SINGLE>
@@ -39,10 +45,6 @@ Examples:
 
   # Single-end reads without annotation
   ./Pipeline/Calling.sh -d ./output -r ref.fa -s single_reads.fq -p 1 -q 20
-```
-You can now run the pipeline with the following command
-```bash
-path/to/RhodoSNP/Pipeline/Calling.sh -h
 ```
 
 ## Use cases
