@@ -11,7 +11,7 @@ mamba env create --name <env name> --file=RhodoSNP_Setup.yml # or conda but that
 cd RhodoSNP/Pipeline
 chmod +x Calling.sh
 ```
-The Output should look something like that
+The output should look something like that
 ```
 Usage: ./Pipeline/Calling.sh -d <project_dir> -r <ref_fasta> [OPTIONS] <-1 READ1 -2 READ2 | -s SINGLE>
 
@@ -52,7 +52,7 @@ path/to/RhodoSNP/Pipeline/Calling.sh -h
 ./Pipeline/Calling.sh -d ./output -r ref.fa -s single_reads.fq -p 1 -q 20
 ```
 
-### SNP Calling with additional SNP annotation
+### SNP Calling with additional SNP annotation (gff file is required)
  ```bash
 ./Pipeline/Calling.sh -d ./my_project -r reference.fasta -g annotations.gff -1 reads_R1.fq -2 reads_R2.fq -t 8
 ```
