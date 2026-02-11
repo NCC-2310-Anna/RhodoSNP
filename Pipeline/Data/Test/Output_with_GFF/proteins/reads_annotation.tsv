@@ -1,0 +1,9 @@
+Pos	Product	Protein	Ref	Alt	Strand
+>488	product=transposase	protein_id=WP_147176061.1	A	C	-
+>637	product=transposase	protein_id=WP_147176061.1	G	A	-
+>9041	product=type IV secretion system DNA-binding domain-containing protein	protein_id=WP_011836224.1	C	T	+
+>10436	product=MobF family relaxase	protein_id=WP_247645456.1	A	T	+
+>29422	product=TraC family protein	protein_id=WP_061350898.1	G	A	+
+>32839	product=conjugal transfer pilus assembly protein TraU	protein_id=WP_011331482.1	G	C	+
+>34786	product=conjugal transfer protein TraN	protein_id=WP_011331484.1	C	T	+
+>42750	product=conjugal transfer protein TraG N-terminal domain-containing protein	protein_id=WP_017208420.1	G	A	+

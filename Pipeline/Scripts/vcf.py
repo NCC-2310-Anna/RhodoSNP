@@ -78,53 +78,53 @@ def ConflictDetection(vcf_merge):
         if pos != "POS" and pos != "POS ":
             if ref1 == ref2 == ref3 and alt1 == alt2 == alt3: # variant is found by all callers
                 if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
-                    print(f"SNP at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
+                    # print(f"SNP at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                     output_vcf.append([pos, chrom, ref1, alt1, "SNP"])
                 else:
-                    print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
+                    # print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                     output_vcf.append([pos, chrom, ref1, alt1, "INDEL"])
             elif ref1 == ".":
                 if ref2 == ref3 and alt2 == alt3:
                     if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
-                        print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
+                        # print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref2, alt2, "SNP"])
                     else:
-                        print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
+                        # print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref2, alt2, "INDEL"])
-                else:
-                    print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
-                    print(f"Caller 2: {ref2}/{alt2}")
-                    print(f"Caller 3: {ref3}/{alt3}")
+#                else:
+                  #  print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
+                  #  print(f"Caller 2: {ref2}/{alt2}")
+                  #  print(f"Caller 3: {ref3}/{alt3}")
             elif ref2 == ".":
                 if ref1 == ref3 and alt1 == alt3:
                     if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
-                        print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
+                        # print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref3, alt3, "SNP"])
                     else:
-                        print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
+                        # print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref3, alt3, "INDEL"])
-                else:
-                    print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
-                    print(f"Caller 1: {ref1}/{alt1}")
-                    print(f"Caller 3: {ref3}/{alt3}")
+ #               else:
+                   # print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
+                   # print(f"Caller 1: {ref1}/{alt1}")
+                   # print(f"Caller 3: {ref3}/{alt3}")
         
             elif ref3 == ".":
                 if ref1 == ref2 and alt1 == alt2:
                     if (len(ref1) + len(ref2) + len(ref3)) < 4 and (len(alt1) + len(alt2) + len(alt3)) < 4:
-                        print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
+                        # print(f"SNP at {pos} (replicon {chrom}) found by 2 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref1, alt1, "SNP"])
                     else:
-                        print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
+                        # print(f"INDEL at {pos} (replicon {chrom}) found by 3 callers without conflicts...")
                         output_vcf.append([pos, chrom, ref1, alt1, "INDEL"])
-                else:
-                    print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
-                    print(f"Caller 1: {ref1}/{alt1}")
-                    print(f"Caller 2: {ref2}/{alt2}")
-            else:
-                print(f"Variant at {pos} (replicon {chrom}) found by 3 callers with conflicts.")
-                print(f"Caller 1: {ref1}/{alt1}")
-                print(f"Caller 2: {ref2}/{alt2}")
-                print(f"Caller 3: {ref3}/{alt3}")
+  #              else:
+                   # print(f"Variant at {pos} (replicon {chrom}) found by 2 callers with conflicts.")
+                   # print(f"Caller 1: {ref1}/{alt1}")
+                   # print(f"Caller 2: {ref2}/{alt2}")
+  #          else:
+               # print(f"Variant at {pos} (replicon {chrom}) found by 3 callers with conflicts.")
+               # print(f"Caller 1: {ref1}/{alt1}")
+               # print(f"Caller 2: {ref2}/{alt2}")
+               # print(f"Caller 3: {ref3}/{alt3}")
     print(f"Done...\nVariants processed: {len(vcf_merge)-1}\nConflicts found: {len(vcf_merge)-len(output_vcf)}\nPassed variants: {len(output_vcf) -1}")
     return output_vcf
     

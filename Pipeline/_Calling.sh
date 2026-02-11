@@ -237,9 +237,9 @@ lofreq indelqual --dindel --ref "$REF_PATH" --out "$INDELQUAL_BAM" "$RAW_BAM" 2>
 samtools index "$INDELQUAL_BAM"
 
 echo "[STEP] SNP Calling (parallel execution)..."
-lofreq call-parallel --pp-threads "$THREADS"\
+lofreq call-parallel --pp-threads "$THREADS" \
     -f "$REF_PATH" --call-indels \
-    -o "$SNP_DIR/Lofreq/${SAMPLE}.vcf"\
+    -o "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
     "$INDELQUAL_BAM" 2> "$LOG_DIR/${SAMPLE}_lofreq.log" &
 
 # --- bcftools ---
@@ -317,27 +317,7 @@ if [[ -n "$GFF_PATH" ]]; then
         echo "[DONE] Annotation completed"
     fi
 else
-    echo "[INFO] Skipping annotation step (no GFF file provided) just merging"
-    # Locate the annotation script
-    SCRIPT_DIR="$(dirname "$(realpath "$0")")/Scripts"
-    ANNOT_SCRIPT="$SCRIPT_DIR/Annot.py"
-    
-    if [[ ! -f "$ANNOT_SCRIPT" ]]; then
-        echo "[WARNING] Annotation script not found at: $ANNOT_SCRIPT" >&2
-        echo "[WARNING] Skipping annotation step" >&2
-    else
-        python3 "$ANNOT_SCRIPT" \
-            -f "$REF_PATH" \
-            -v1 "$SNP_DIR/BCFTools/${SAMPLE}.vcf" \
-            -v2 "$SNP_DIR/Freebayes/${SAMPLE}.vcf" \
-            -v3 "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
-            -o1 "$PROT_DIR/${SAMPLE}_protein.fasta" \
-            -o2 "$PROT_DIR/${SAMPLE}_annotation.tsv" \
-            -o3 "$SNP_DIR/${SAMPLE}_consensus.tsv" \
-            2> "$LOG_DIR/${SAMPLE}_annot.log"
-        
-        echo "[DONE] Merging completed"
-    fi
+    echo "[INFO] Skipping annotation step (no GFF file provided)"
 fi
 
 echo "------------------------------------------------------"
