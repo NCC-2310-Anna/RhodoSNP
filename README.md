@@ -2,8 +2,11 @@
 
 ![RhodoSNP Logo](https://github.com/NCC-2310-Anna/RhodoSNP/blob/main/Readme_files/Logo.png "RhodoSNP")
 An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
+##Contents
+- [Getting Started](#Get_started)
+- [Users' Guide](##Use_cases)
 
-## Getting started
+## <a name="Get_started"><a\> Getting started
 
 ```bash
 git clone https://github.com/NCC-2310-Anna/RhodoSNP.git
@@ -49,7 +52,7 @@ Examples:
   ./Pipeline/Calling.sh -d ./output -r ref.fa -s single_reads.fq -p 1 -q 20
 ```
 
-## Use cases
+## <a name="Use_cases"><a\> Use cases
 
 ### SNP Calling without further annotation with single-end reads)
  ```bash
