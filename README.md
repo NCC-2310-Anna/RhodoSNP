@@ -1,5 +1,5 @@
 # RhodoSNP
-An all-in-one variant calling and annotation pipeline for Rhodobacter sphaeroides
+An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
 
 ## Getting started
 
