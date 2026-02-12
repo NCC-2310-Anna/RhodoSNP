@@ -6,7 +6,7 @@ An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroid
 - [Getting Started](#Get_started)
 - [Users' Guide](##Use_cases)
 
-## <a name="Get_started"><a\> Getting started
+## <a name="Get_started"></a>Getting started
 
 ```bash
 git clone https://github.com/NCC-2310-Anna/RhodoSNP.git
@@ -52,7 +52,7 @@ Examples:
   ./Pipeline/Calling.sh -d ./output -r ref.fa -s single_reads.fq -p 1 -q 20
 ```
 
-## <a name="Use_cases"><a\> Use cases
+## <a name="Use_cases"></a>Use cases
 
 ### SNP Calling without further annotation with single-end reads)
  ```bash
