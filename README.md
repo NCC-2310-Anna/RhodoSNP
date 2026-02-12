@@ -1,4 +1,7 @@
 # RhodoSNP
+
+Inline-style: 
+![RhodoSNP Logo](https://github.com/NCC-2310-Anna/RhodoSNP/blob/main/Readme_files/Logo.png "RhodoSNP")
 An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
 
 ## Getting started
