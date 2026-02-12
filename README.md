@@ -3,8 +3,8 @@
 ![RhodoSNP Logo](https://github.com/NCC-2310-Anna/RhodoSNP/blob/main/Readme_files/Logo.png "RhodoSNP")
 An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
 ##Contents
-- [Getting Started](#Get_started)
-- [Users' Guide](#Use_cases)
+- [Getting Started](#getting-started)
+- [Users' Guide](#use-cases)
 
 ## <a name="Get_started"></a>Getting started
 
