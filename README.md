@@ -4,7 +4,7 @@
 An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
 ##Contents
 - [Getting Started](#Get_started)
-- [Users' Guide](##Use_cases)
+- [Users' Guide](#Use_cases)
 
 ## <a name="Get_started"></a>Getting started
 
