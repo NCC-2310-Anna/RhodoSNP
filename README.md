@@ -7,7 +7,7 @@ An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroid
 
 ## Contents
 - [Getting Started](#getting-started)
-- [Users' Guide](#use-cases)
+- [Use cases](#use-cases)
 
 ## Getting started
 
