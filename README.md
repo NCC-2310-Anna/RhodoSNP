@@ -1,5 +1,5 @@
 # RhodoSNP
-An all-in-one variant calling and annotation pipeline for Rhodobacter sphaeroides
+An all-in-one variant calling and annotation pipeline for _Rhodobacter sphaeroides_
 
 ## Getting started
 
@@ -7,7 +7,7 @@ An all-in-one variant calling and annotation pipeline for Rhodobacter sphaeroide
 git clone https://github.com/NCC-2310-Anna/RhodoSNP.git
 cd RhodoSNP/Setup
 mamba env create --name <env name> --file=RhodoSNP_Setup.yml # or conda but that is slower
-#make RhodoSNP executable
+# make RhodoSNP executable
 cd RhodoSNP/Pipeline
 chmod +x Calling.sh
 ```
@@ -17,7 +17,7 @@ You can now run the pipeline with the following command
 path/to/RhodoSNP/Pipeline/Calling.sh -h
 ```
 
-The output should look something like that
+The output should look something like that:
 ```
 Usage: ./Pipeline/Calling.sh -d <project_dir> -r <ref_fasta> [OPTIONS] <-1 READ1 -2 READ2 | -s SINGLE>
 
@@ -49,12 +49,12 @@ Examples:
 
 ## Use cases
 
-### SNP Calling without further annotation
+### SNP Calling without further annotation with single-end reads)
  ```bash
 ./Pipeline/Calling.sh -d ./output -r ref.fa -s single_reads.fq -p 1 -q 20
 ```
 
-### SNP Calling with additional SNP annotation (gff file is required)
+### SNP Calling with additional SNP annotation with paired-end reads (gff file for the reference is required)
  ```bash
 ./Pipeline/Calling.sh -d ./my_project -r reference.fasta -g annotations.gff -1 reads_R1.fq -2 reads_R2.fq -t 8
 ```
