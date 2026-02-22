@@ -66,3 +66,8 @@ Examples:
  ```bash
 ./Pipeline/Calling.sh -d ./my_project -r reference.fasta -g annotations.gff -1 reads_R1.fq -2 reads_R2.fq -t 8
 ```
+
+## Tested on
+RhodoSNP was successful installed and tested with the test dataset on the following setups:
+- Ubuntu 24.04.4 LTS with conda version 25.11.1 and Python version 3.13.11 (Intel® Core™ i3-2348M × 4)
+- Ubuntu 24.04.2 LTS with conda version 23.1.0 and Python version 3.10.10 (Intel® Xeon™ CPU E5-2690 v2)
