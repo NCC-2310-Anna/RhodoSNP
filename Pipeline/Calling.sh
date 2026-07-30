@@ -143,7 +143,6 @@ if ! [[ "$QUALITY_THRESH" =~ ^[0-9]+$ ]]; then
 fi
 
 # --- Setup directory structure ---
-PROJECT_DIR=$(realpath "$PROJECT_DIR")
 REF_PATH=$(realpath "$REF_FASTA")
 
 LOG_DIR="$PROJECT_DIR/logs"
@@ -158,7 +157,7 @@ mkdir -p "$ALIGN_DIR/Raw"
 mkdir -p "$ALIGN_DIR/Filtered"
 mkdir -p "$ALIGN_DIR/Indelqual"
 mkdir -p "$SNP_DIR/BCFTools"
-mkdir -p "$SNP_DIR/Freebayes"
+mkdir -p "$SNP_DIR/Snver"
 mkdir -p "$SNP_DIR/Lofreq"
 
 # Create protein directory only if annotation will be performed
@@ -235,7 +234,7 @@ samtools index "$FILTERED_BAM"
 echo "[STEP] Running LoFreq indel quality..."
 lofreq indelqual --dindel --ref "$REF_PATH" --out "$INDELQUAL_BAM" "$RAW_BAM" 2> "$LOG_DIR/${SAMPLE}_indelqual.log"
 samtools index "$INDELQUAL_BAM"
-
+# --- LoFreq ---
 echo "[STEP] SNP Calling (parallel execution)..."
 lofreq call-parallel --pp-threads "$THREADS"\
     -f "$REF_PATH" --call-indels \
@@ -246,11 +245,12 @@ lofreq call-parallel --pp-threads "$THREADS"\
 bcftools mpileup -Ou -f "$REF_PATH" "$FILTERED_BAM" \
 | bcftools call -mv --ploidy "$PLOIDY" -Ov -o "$SNP_DIR/BCFTools/${SAMPLE}.vcf" 2> "$LOG_DIR/${SAMPLE}_bcftools.log" &
 
-# --- FreeBayes ---
-freebayes -f "$REF_PATH" "$RAW_BAM" --ploidy "$PLOIDY" \
-    > "$SNP_DIR/Freebayes/${SAMPLE}.vcf" 2> "$LOG_DIR/${SAMPLE}_freebayes.log" &
-
+# --- snver ---
+snver -i "$FILTERED_BAM" -r "$REF_PATH" -o "$SNP_DIR/Snver/${SAMPLE}" -n "$PLOIDY" 2> "$LOG_DIR/${SAMPLE}_snver.log" &
 wait
+mv "$SNP_DIR/Snver/${SAMPLE}".filter.vcf "$SNP_DIR/Snver/${SAMPLE}".vcf
+rm "$SNP_DIR/Snver/${SAMPLE}".failed.log "$SNP_DIR/Snver/${SAMPLE}".indel.filter.vcf "$SNP_DIR/Snver/${SAMPLE}".indel.raw.vcf "$SNP_DIR/Snver/${SAMPLE}".raw.vcf
+
 echo "[DONE] SNP calling completed for $SAMPLE"
 echo "------------------------------------------------------"
 
@@ -267,13 +267,15 @@ bcftools norm -f "$REF_PATH" -m -both -Ov "$TEMP_DIR/${SAMPLE}_sort.vcf" -o "$TE
 mv "$TEMP_DIR/${SAMPLE}_norm.vcf" "$SNP_DIR/BCFTools/${SAMPLE}.vcf"
 rm "$TEMP_DIR"/*.vcf
 
-# Normalize Freebayes VCF
-echo "[INFO] Normalizing Freebayes VCF..."
-cp "$SNP_DIR/Freebayes/${SAMPLE}.vcf" "$TEMP_DIR/${SAMPLE}.vcf"
-bcftools sort "$TEMP_DIR/${SAMPLE}.vcf" -Ov -o "$TEMP_DIR/${SAMPLE}_sort.vcf"
+# Normalize Strelka VCF
+echo "[INFO] Normalizing Snver VCF..."
+cp "$SNP_DIR/Snver/${SAMPLE}.vcf" "$TEMP_DIR/${SAMPLE}.vcf"
+bgzip "$TEMP_DIR/${SAMPLE}.vcf"
+tabix -p vcf "$TEMP_DIR/${SAMPLE}.vcf.gz"
+bcftools sort "$TEMP_DIR/${SAMPLE}.vcf.gz" -Ov -o "$TEMP_DIR/${SAMPLE}_sort.vcf"
 bcftools norm -f "$REF_PATH" -m -both -Ov "$TEMP_DIR/${SAMPLE}_sort.vcf" -o "$TEMP_DIR/${SAMPLE}_norm.vcf"
-mv "$TEMP_DIR/${SAMPLE}_norm.vcf" "$SNP_DIR/Freebayes/${SAMPLE}.vcf"
-rm "$TEMP_DIR"/*.vcf
+mv "$TEMP_DIR/${SAMPLE}_norm.vcf" "$SNP_DIR/Snver/${SAMPLE}.vcf"
+rm -f "$TEMP_DIR"/*.vcf "$TEMP_DIR"/*.gz "$TEMP_DIR"/*.tbi
 
 # Normalize Lofreq VCF (requires bgzip and tabix)
 echo "[INFO] Normalizing Lofreq VCF..."
@@ -307,7 +309,7 @@ if [[ -n "$GFF_PATH" ]]; then
             -f "$REF_PATH" \
             -g "$GFF_PATH" \
             -v1 "$SNP_DIR/BCFTools/${SAMPLE}.vcf" \
-            -v2 "$SNP_DIR/Freebayes/${SAMPLE}.vcf" \
+            -v2 "$SNP_DIR/Snver/${SAMPLE}.vcf" \
             -v3 "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
             -o1 "$PROT_DIR/${SAMPLE}_protein.fasta" \
             -o2 "$PROT_DIR/${SAMPLE}_annotation.tsv" \
@@ -329,7 +331,7 @@ else
         python3 "$ANNOT_SCRIPT" \
             -f "$REF_PATH" \
             -v1 "$SNP_DIR/BCFTools/${SAMPLE}.vcf" \
-            -v2 "$SNP_DIR/Freebayes/${SAMPLE}.vcf" \
+            -v2 "$SNP_DIR/Snver/${SAMPLE}.vcf" \
             -v3 "$SNP_DIR/Lofreq/${SAMPLE}.vcf" \
             -o1 "$PROT_DIR/${SAMPLE}_protein.fasta" \
             -o2 "$PROT_DIR/${SAMPLE}_annotation.tsv" \

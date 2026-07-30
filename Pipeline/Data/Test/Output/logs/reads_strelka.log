@@ -1,0 +1,98 @@
+[2026-03-19T11:23:03.853921Z] [bt007] [970586_1] [WorkflowRunner] Initiating pyFlow run
+[2026-03-19T11:23:03.869783Z] [bt007] [970586_1] [WorkflowRunner] pyFlowClientWorkflowClass: StrelkaGermlineWorkflow
+[2026-03-19T11:23:03.894523Z] [bt007] [970586_1] [WorkflowRunner] pyFlowVersion: 1.1.20
+[2026-03-19T11:23:03.920562Z] [bt007] [970586_1] [WorkflowRunner] pythonVersion: 2.7.15.final.0
+[2026-03-19T11:23:03.945295Z] [bt007] [970586_1] [WorkflowRunner] WorkingDir: '/home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline'
+[2026-03-19T11:23:03.963511Z] [bt007] [970586_1] [WorkflowRunner] ProcessCmdLine: '/home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Output/snps/Strelka/reads/runWorkflow.py -m local -j 6'
+[2026-03-19T11:23:03.994767Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] mode: local
+[2026-03-19T11:23:04.026025Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] nCores: 6
+[2026-03-19T11:23:04.057257Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] memMb: 257890
+[2026-03-19T11:23:04.098923Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] dataDir: /home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Output/snps/Strelka/reads/workspace/pyflow.data
+[2026-03-19T11:23:04.119747Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] isDryRun: False
+[2026-03-19T11:23:04.161430Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] isContinue: False
+[2026-03-19T11:23:04.192676Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] isForceContinue: True
+[2026-03-19T11:23:04.213495Z] [bt007] [970586_1] [WorkflowRunner] [RunParameters] mailTo: ''
+[2026-03-19T11:23:04.235101Z] [bt007] [970586_1] [TaskRunner:masterWorkflow] Starting task specification for master workflow
+[2026-03-19T11:23:04.267098Z] [bt007] [970586_1] [StrelkaGermlineWorkflow] Initiating Strelka germline workflow version: 2.9.10
+[2026-03-19T11:23:04.310460Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_makeTmpDir' to master workflow
+[2026-03-19T11:23:04.352596Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_makeTmpDir' to master workflow
+[2026-03-19T11:23:04.394220Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_makeTmpDir' from master workflow
+[2026-03-19T11:23:04.444275Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_estimateChromDepth_000_NZ_CP186566_1' to master workflow
+[2026-03-19T11:23:04.486600Z] [bt007] [970586_1] [TaskRunner:getChromDepth_makeTmpDir] Task initiated on local node
+[2026-03-19T11:23:04.549605Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_sample000_catChromDepth' to master workflow
+[2026-03-19T11:23:04.633403Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_mergeChromDepth' to master workflow
+[2026-03-19T11:23:04.716664Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'getChromDepth_removeTmpDir' to master workflow
+[2026-03-19T11:23:04.757931Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_makeTmpDir' launched from master workflow
+[2026-03-19T11:23:04.799851Z] [bt007] [970586_1] [WorkflowRunner] Adding sub-workflow task 'CallGenome' to master workflow
+[2026-03-19T11:23:04.841662Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_sample000_makeTmpDir' from master workflow
+[2026-03-19T11:23:04.981454Z] [bt007] [970586_1] [TaskRunner:masterWorkflow] Finished task specification for master workflow
+[2026-03-19T11:23:04.997401Z] [bt007] [970586_1] [TaskRunner:getChromDepth_sample000_makeTmpDir] Task initiated on local node
+[2026-03-19T11:23:05.126415Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_sample000_makeTmpDir' launched from master workflow
+[2026-03-19T11:23:05.169166Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_sample000_estimateChromDepth_000_NZ_CP186566_1' from master workflow
+[2026-03-19T11:23:05.190306Z] [bt007] [970586_1] [TaskRunner:getChromDepth_sample000_estimateChromDepth_000_NZ_CP186566_1] Task initiated on local node
+[2026-03-19T11:23:05.351566Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_sample000_estimateChromDepth_000_NZ_CP186566_1' launched from master workflow
+[2026-03-19T11:23:05.412648Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_sample000_catChromDepth' from master workflow
+[2026-03-19T11:23:05.436493Z] [bt007] [970586_1] [TaskRunner:getChromDepth_sample000_catChromDepth] Task initiated on local node
+[2026-03-19T11:23:05.647833Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_sample000_catChromDepth' launched from master workflow
+[2026-03-19T11:23:05.689951Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_mergeChromDepth' from master workflow
+[2026-03-19T11:23:05.708560Z] [bt007] [970586_1] [TaskRunner:getChromDepth_mergeChromDepth] Task initiated on local node
+[2026-03-19T11:23:05.919929Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_mergeChromDepth' launched from master workflow
+[2026-03-19T11:23:05.960687Z] [bt007] [970586_1] [TaskManager] Launching sub-workflow task: 'CallGenome' from master workflow
+[2026-03-19T11:23:05.976254Z] [bt007] [970586_1] [TaskRunner:CallGenome] Starting task specification for sub-workflow
+[2026-03-19T11:23:05.992258Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+makeTmpDir' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.007371Z] [bt007] [970586_1] [TaskManager] Launching command task: 'getChromDepth_removeTmpDir' from master workflow
+[2026-03-19T11:23:06.032249Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+callGenomeSegment_chromId_000_NZ_CP186566_1_0000' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.049873Z] [bt007] [970586_1] [TaskRunner:getChromDepth_removeTmpDir] Task initiated on local node
+[2026-03-19T11:23:06.064559Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_variants' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.095230Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_gVCF_S1' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.135068Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+makeTmpDir' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.176755Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+completedAllGenomeSegments' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.208651Z] [bt007] [970586_1] [TaskRunner:CallGenome+makeTmpDir] Task initiated on local node
+[2026-03-19T11:23:06.272995Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+variants_concat_vcf' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.346250Z] [bt007] [970586_1] [TaskManager] Completed command task: 'getChromDepth_removeTmpDir' launched from master workflow
+[2026-03-19T11:23:06.419022Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+variants_index_vcf' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.450482Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+gVCF_S1_concat_vcf' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.481644Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+gVCF_S1_index_vcf' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.512837Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+makeTmpDir' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.544073Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+addLegacyOutputLink' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.582133Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+mergeRunStats' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.623362Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+callGenomeSegment_chromId_000_NZ_CP186566_1_0000' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.664995Z] [bt007] [970586_1] [WorkflowRunner] Adding command task 'CallGenome+removeTmpDir' to sub-workflow 'CallGenome'
+[2026-03-19T11:23:06.707627Z] [bt007] [970586_1] [TaskRunner:CallGenome+callGenomeSegment_chromId_000_NZ_CP186566_1_0000] Task initiated on local node
+[2026-03-19T11:23:06.790000Z] [bt007] [970586_1] [TaskRunner:CallGenome] Finished task specification for sub-workflow
+[2026-03-19T11:23:07.805588Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+callGenomeSegment_chromId_000_NZ_CP186566_1_0000' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:07.866456Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_gVCF_S1' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:07.891250Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_variants' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:07.907831Z] [bt007] [970586_1] [TaskRunner:CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_gVCF_S1] Task initiated on local node
+[2026-03-19T11:23:07.924709Z] [bt007] [970586_1] [TaskRunner:CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_variants] Task initiated on local node
+[2026-03-19T11:23:08.072277Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_gVCF_S1' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.093850Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+compressGenomeSegment_chromId_000_NZ_CP186566_1_0000_variants' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.114934Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+completedAllGenomeSegments' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.135774Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+mergeRunStats' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.173767Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+variants_concat_vcf' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.215039Z] [bt007] [970586_1] [TaskRunner:CallGenome+mergeRunStats] Task initiated on local node
+[2026-03-19T11:23:08.287925Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+gVCF_S1_concat_vcf' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.383121Z] [bt007] [970586_1] [TaskRunner:CallGenome+variants_concat_vcf] Task initiated on local node
+[2026-03-19T11:23:08.466478Z] [bt007] [970586_1] [TaskRunner:CallGenome+gVCF_S1_concat_vcf] Task initiated on local node
+[2026-03-19T11:23:08.549610Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+mergeRunStats' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.746243Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+variants_concat_vcf' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.768720Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+variants_index_vcf' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.783059Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+gVCF_S1_concat_vcf' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.799708Z] [bt007] [970586_1] [TaskRunner:CallGenome+variants_index_vcf] Task initiated on local node
+[2026-03-19T11:23:08.814234Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+gVCF_S1_index_vcf' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.841886Z] [bt007] [970586_1] [TaskRunner:CallGenome+gVCF_S1_index_vcf] Task initiated on local node
+[2026-03-19T11:23:08.953055Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+variants_index_vcf' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:08.997521Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+gVCF_S1_index_vcf' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:09.038278Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+removeTmpDir' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:09.080052Z] [bt007] [970586_1] [TaskManager] Launching command task: 'CallGenome+addLegacyOutputLink' from sub-workflow 'CallGenome'
+[2026-03-19T11:23:09.121489Z] [bt007] [970586_1] [TaskRunner:CallGenome+removeTmpDir] Task initiated on local node
+[2026-03-19T11:23:09.185269Z] [bt007] [970586_1] [TaskRunner:CallGenome+addLegacyOutputLink] Task initiated on local node
+[2026-03-19T11:23:09.382215Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+removeTmpDir' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:09.435034Z] [bt007] [970586_1] [TaskManager] Completed command task: 'CallGenome+addLegacyOutputLink' launched from sub-workflow 'CallGenome'
+[2026-03-19T11:23:09.690905Z] [bt007] [970586_1] [TaskManager] Completed sub-workflow task: 'CallGenome' launched from master workflow
+[2026-03-19T11:23:10.641519Z] [bt007] [970586_1] [WorkflowRunner] Strelka germline workflow successfully completed.
+[2026-03-19T11:23:10.641519Z] [bt007] [970586_1] [WorkflowRunner] 
+[2026-03-19T11:23:10.641519Z] [bt007] [970586_1] [WorkflowRunner] 	workflow version: 2.9.10
+[2026-03-19T11:23:10.667905Z] [bt007] [970586_1] [WorkflowRunner] 
+[2026-03-19T11:23:10.692639Z] [bt007] [970586_1] [WorkflowRunner] Workflow successfully completed all tasks
+[2026-03-19T11:23:10.717382Z] [bt007] [970586_1] [WorkflowRunner] Elapsed time for full workflow: 6 sec

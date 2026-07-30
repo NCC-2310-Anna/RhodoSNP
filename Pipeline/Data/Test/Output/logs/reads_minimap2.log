@@ -1,0 +1,11 @@
+[M::mm_idx_gen::0.003*1.56] collected minimizers
+[M::mm_idx_gen::0.004*2.84] sorted minimizers
+[M::main::0.004*2.82] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.004*2.67] mid_occ = 10
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.005*2.58] distinct minimizers: 7902 (98.96% are singletons); average occurrences: 1.031; average spacing: 5.344; total length: 43535
+[M::worker_pipeline::0.069*4.17] mapped 10000 sequences
+[M::worker_pipeline::0.131*4.31] mapped 10000 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -a -t 6 /home/Drives/HDD03_06T_SDE/anna/RhodoSNP_Project/RhodoSNP/Pipeline/Data/Test/Rsph_orig.fa ./Data/Test/reads_R1.fastq ./Data/Test/reads_R2.fastq
+[M::main] Real time: 0.133 sec; CPU: 0.566 sec; Peak RSS: 0.010 GB
