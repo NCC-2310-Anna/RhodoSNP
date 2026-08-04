@@ -68,6 +68,11 @@ Examples:
 ./Pipeline/Calling.sh -d ./my_project -r reference.fasta -g annotations.gff -1 reads_R1.fq -2 reads_R2.fq -t 8
 ```
 
+## Troubleshooting
+
+There are many warning in the protein mapping, and no variants in proteins:
+The chromosome names between the gff-file amd the fasta-file might be differ. Please check the header lines.
+
 ## Tested on
 RhodoSNP was successful installed and tested with the test dataset on the following setups:
 - Ubuntu 24.04.4 LTS with conda version 25.11.1 and Python version 3.13.11 (Intel® Core™ i3-2348M × 4)
